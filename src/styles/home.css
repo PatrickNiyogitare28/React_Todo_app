@@ -1,0 +1,49 @@
+.container{
+    width: 1005;
+    padding: 10%;
+    display: flex;
+    
+}
+
+.leftWrapper{
+    width: 50%;
+    /* background: red; */
+}
+.leftWrapper h1{
+    font-size: 4em;
+    font-weight: bolder;
+    
+}
+.leftWrapper h1 small{
+    display: block;
+    font-size: 18px;
+    margin-top: 1em !important;
+    font-weight: lighter;
+}
+.leftWrapper button{
+    background: transparent;
+    display: block;
+    color: black;
+    border-radius: 30px 30px;
+    width: 250px;
+    border: 2px solid black;
+    padding: 15px;
+    margin-top: 4em;
+    font-size: 20px;
+    margin-left: 25%;
+
+}
+.leftWrapper button:hover{
+    background: black;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+.rightWrapper{
+    width:50%;
+    
+}
+.rightWrapper img{
+    width: 90%;
+    float: right;
+}
