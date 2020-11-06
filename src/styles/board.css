@@ -1,0 +1,95 @@
+.App {
+    text-align: center;
+    width: 95%;
+    margin: 15px auto;
+  }
+  
+  .container-drag {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .container-header{
+    width: 50%;
+    margin-left: 20%;
+    margin-top: 2.5em;
+  }
+  .subContainer{
+      width: 50%;
+      margin-left: 20%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2.5em;
+      height: 450px;
+  }
+  /* .wip {
+   
+    width: 150px;
+    height: 100vh;
+    left: 0;
+    top: 10;
+    background-color: #EEEEEE;
+    border-right: 1px dotted;
+  } */
+  
+  .header {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background-color: #E0E0E0;
+    width:100%;
+  }
+  
+  .task-header {
+    display: inline-block;
+    width:100%;       
+    font-weight: bold;
+    border-top: 5px solid black;
+    padding: 10px;
+    margin-bottom: 2em;
+  }
+  
+  /* .droppable {
+    
+    width: 150px;
+    height: 100vh;
+    right: 0;
+    top: 10;
+    background-color: #9E9E9E;
+    border-left: 1px dotted;
+  } */
+  
+  .draggable {
+    width: 100px;
+    height: 100px;
+    /* background-color: yellow; */
+    margin: 5px auto;
+    line-height: 3em;
+    width: 100%;
+    height: 50px;
+    border-radius: 5px 5px;
+    /* border: 1px solid black; */
+    background: black;
+    color: white;
+    margin-top: 1em;
+    cursor: move;
+}
+
+  
+  .card-item-container{
+      width: 200px;
+      
+  }
+  .addTask{
+      border: 2px solid black;
+      background: transparent;
+      color: black;
+      padding: 10px;
+      width: 200px;
+      border-radius: 30px 30px;
+  }
+  .addTask:hover{
+      background: black;
+      color: white;
+      cursor: pointer;
+  }

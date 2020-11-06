@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PageNotFound from './pages/PageNotFound';
+import Board from './pages/Board';
 function App() {
   return (
     <div className="App">
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" exact component={Home}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
+        <Route path="/board" component={Board} />
         <Route path="/" component={PageNotFound}/>
       </Switch>
     </div>
