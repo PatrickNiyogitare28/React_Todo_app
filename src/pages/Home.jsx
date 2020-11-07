@@ -5,6 +5,7 @@ import imageURL from '../assets/images/home-img.svg';
 import Footer from '../components/Footer';
 
 class Home extends Component {
+  
     triggerTypeWritter(){
         var TxtRotate = function(el, toRotate, period) {
           this.toRotate = toRotate;
@@ -66,6 +67,7 @@ class Home extends Component {
 
     render() { 
         this.triggerTypeWritter();
+        console.log("/////",process.env.REACT_APP_API_KEY);
         return (  
         
             <div className="containerFluid">
