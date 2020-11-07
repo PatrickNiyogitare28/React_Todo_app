@@ -13,4 +13,14 @@ const signUp = async(email,password) => {
      })
 }
 
-export default signUp;
+const login = async(email,password) => {
+    auth.signInWithEmailAndPassword(email,password).then(user => {
+        return true;
+    })
+    .catch(e => {
+        alert(e);
+        console.log(e);
+    })
+}
+
+export {signUp, login};
