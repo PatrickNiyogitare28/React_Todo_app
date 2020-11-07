@@ -1,7 +1,7 @@
 import React, { Component} from  'react';
 import {Link, Redirect} from 'react-router-dom';
 import '../styles/login.css';
-import signUp from '../services/auth.service';
+import {signUp} from '../services/auth.service';
 
 
 class Signup extends Component {
