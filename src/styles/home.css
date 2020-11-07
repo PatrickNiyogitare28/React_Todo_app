@@ -1,3 +1,18 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+body{
+    
+    background: red;
+  
+  }
+.containerFluid{
+    font-family: 'Century Gothic';
+    width: 100%;
+    padding: 0px;
+}
 .container{
     width: 1005;
     padding: 10%;
@@ -12,6 +27,7 @@
 .leftWrapper h1{
     font-size: 4em;
     font-weight: bolder;
+    width: 90%;
     
 }
 .leftWrapper h1 small{
@@ -19,6 +35,7 @@
     font-size: 18px;
     margin-top: 1em !important;
     font-weight: lighter;
+  
 }
 .leftWrapper button{
     background: transparent;
@@ -28,7 +45,7 @@
     width: 250px;
     border: 2px solid black;
     padding: 15px;
-    margin-top: 4em;
+    margin-top: 3em;
     font-size: 20px;
     margin-left: 25%;
 
@@ -37,7 +54,7 @@
     background: black;
     cursor: pointer;
     color: white;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .rightWrapper{
     width:50%;

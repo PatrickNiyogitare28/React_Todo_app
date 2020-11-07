@@ -1,0 +1,15 @@
+.footerContainer{
+    width: 100%;
+    /* background: rgb(255, 255, 255); */
+    background: rgba(224, 224, 224, 0.459);
+    color: black;
+    padding: 7px;
+    height: 50px;
+    
+    
+}
+
+.footerContainer  a{
+    text-decoration: none;
+    cursor: pointer;
+}
