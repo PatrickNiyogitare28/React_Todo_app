@@ -8,6 +8,6 @@ const config = {
     storageBucket: 'todolistapp-10c3a.appspot.com',
     messagingSenderId: '950548787481'
 }
-console.log(config)
+
 const app = firebase.initializeApp(config);
 export default app;

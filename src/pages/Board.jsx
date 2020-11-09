@@ -1,18 +1,44 @@
 import React,{Component} from 'react';
 import '../styles/board.css';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+// import {getCurrentUser} from '../services/auth.service';
+import app from '../helper/firebase/Config';
+import closeIcon from '../assets/icons/close-icon.svg';
+const auth = app.auth();
+const db = app.firestore();
 class Board extends Component {
+   constructor(props){
+       super(props);
+    //    this.getCurrentUser = this.getCurrentUser.bind(this);
+       this.handleSubmit = this.handleSubmit.bind(this);
+    //    this.getCurrentUser();
    
-    state = {
-        tasks: [
-            {name:"Learn Angular",category:"wip", bgcolor: "yellow"},
-            {name:"React", category:"wip", bgcolor:"pink"},
-            {name:"Vue", category:"complete", bgcolor:"skyblue"},
-            {name:"Vanilla", category:"inprogress", bgcolor:"skyblue"},
-            {name:"Jquery", category:"inprogress", bgcolor:"skyblue"}
-          ]
     }
 
+    state = {
+        tasks: [
+            // {name:"Learn Angular",category:"wip", bgcolor: "yellow"},
+            // {name:"React", category:"wip", bgcolor:"pink"},
+            // {name:"Vue", category:"complete", bgcolor:"skyblue"},
+            // {name:"Vanilla", category:"inprogress", bgcolor:"skyblue"},
+            // {name:"Jquery", category:"inprogress", bgcolor:"skyblue"}
+          ],
+
+          isLoggedIn: false
+    }
+
+    componentDidMount(){
+        this.getTasks(); 
+    }
+
+    onTriggerAddTask(){
+        document.getElementById('addTaskWrapper').style.display = 'block';
+    }
+
+    onCloseAddTask(){
+        document.getElementById('addTaskWrapper').style.display = 'none';
+    }
     onDragStart = (ev, id) => {
         console.log('dragstart:',id);
         ev.dataTransfer.setData("id", id);
@@ -23,6 +49,7 @@ class Board extends Component {
     }
 
     onDrop = (ev, cat) => {
+      
        let id = ev.dataTransfer.getData("id");
        
        let tasks = this.state.tasks.filter((task) => {
@@ -38,6 +65,53 @@ class Board extends Component {
        });
     }
 
+//    async getCurrentUser(){
+//         return  await auth.currentUser.uid;
+//     }
+
+    handleSubmit(e){
+        e.preventDefault();
+        let task = document.getElementById('task').value;
+        this.addTask(task);
+    }
+
+    async addTask(task){
+      
+      db.collection('tasks').add({
+          name: task,
+          category: 'wip',
+          user: await auth.currentUser.uid
+        }).then(()=> {
+            alert("Task added");
+        })
+        .catch(e => {
+            alert("erro");
+            console.log("Error: "+e);
+        })
+    }
+
+   async getTasks(){
+       let Tasks = []
+       console.log(`${await auth.currentUser.uid}`)
+       await  db.collection('tasks').where("user", "==", `${await auth.currentUser.uid}`).get().then(tasks => {
+            tasks.forEach(task => {
+              Tasks.push(  {
+                _id: task.id,
+            name: task.data().name,
+            category: task.data().category,
+            user: task.data().users
+        })
+            })
+        })
+        .catch(e => {
+            console.log("error occured "+e)
+        })
+        console.log(Tasks)
+        this.setState({
+            ...this.state,
+            tasks:[...this.state.tasks,...Tasks]
+        });
+    }
     render() {
         var tasks = {
             wip: [],
@@ -61,8 +135,17 @@ class Board extends Component {
 
         return (
             <div className="container-drag">
+             <Header/>
               <div className="container-header">
-               <button className="addTask">Add Task</button>
+               <button className="addTask" onClick={this.onTriggerAddTask}>Add Task</button>
+               <div className="newTask-form shadow" id="addTaskWrapper">
+                 
+                   <form onSubmit={this.handleSubmit}>
+                       <span><img src={closeIcon} alt="close icon" onClick={this.onCloseAddTask}/></span>
+                       <input type="text" placeholder="Task name" id="task"/>
+                       <button>Save</button>
+                   </form>
+               </div>
                      
              </div>  
              <div className="subContainer">

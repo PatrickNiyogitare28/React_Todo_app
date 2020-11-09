@@ -1,3 +1,6 @@
+:focus{
+  outline: none;
+}
 .App {
     text-align: center;
     width: 95%;
@@ -92,4 +95,52 @@
       background: black;
       color: white;
       cursor: pointer;
+  }
+  .newTask-form{
+    width: 300px;
+    border-radius: 5px 5px;
+    margin-top: 1em;
+    height: 200px;
+    z-index: 4;
+    display: none;
+  }
+  .newTask-form form span{
+    color: grey;
+    float: right;
+    font-weight: bold;
+    
+  }
+  .newTask-form form span img{
+    width: 35px;
+    padding: 10px;
+  }
+  .newTask-form form span img:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  .newTask-form form{
+    width: 100%;
+    padding: 10px;
+  }
+  .newTask-form input{
+    clear: both;
+    display: block;
+    margin-top: 1em;
+    width: 90%;
+    border-radius: 20px 20px;
+    padding: 10px;
+    border: 1px solid black;
+
+  }
+  .newTask-form button{
+    border-radius: 5px 5px;
+    background: black;
+    color: white;
+    padding: 10px;
+    width: 100px;
+    border-width: 0px;
+    margin-top: 3em;
+    float: left;
+  outline: none;
+
   }
