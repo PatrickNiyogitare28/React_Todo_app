@@ -56,3 +56,6 @@
 .signup-wrapper{
     height: max-content;
 }
+.signupButton{
+    margin-top: 2em !important;
+}
