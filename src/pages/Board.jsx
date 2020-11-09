@@ -5,6 +5,9 @@ import Header from '../components/Header';
 // import {getCurrentUser} from '../services/auth.service';
 import app from '../helper/firebase/Config';
 import closeIcon from '../assets/icons/close-icon.svg';
+import deleteIcon from '../assets/icons/delete-64.png';
+import Toaster from '../components/Toaster';
+
 const auth = app.auth();
 const db = app.firestore();
 class Board extends Component {
@@ -13,7 +16,8 @@ class Board extends Component {
     //    this.getCurrentUser = this.getCurrentUser.bind(this);
        this.handleSubmit = this.handleSubmit.bind(this);
     //    this.getCurrentUser();
-   
+    //   alert(auth.currentUser.uid);
+      
     }
 
     state = {
@@ -29,6 +33,7 @@ class Board extends Component {
     }
 
     componentDidMount(){
+    
         this.getTasks(); 
     }
 
@@ -76,13 +81,14 @@ class Board extends Component {
     }
 
     async addTask(task){
-      
+      Toaster('success','Creating a new task');
       db.collection('tasks').add({
           name: task,
           category: 'wip',
           user: await auth.currentUser.uid
         }).then(()=> {
-            alert("Task added");
+            // alert("Task added");
+            this.componentDidMount();
         })
         .catch(e => {
             alert("erro");
@@ -92,9 +98,10 @@ class Board extends Component {
 
    async getTasks(){
        let Tasks = []
-       console.log(`${await auth.currentUser.uid}`)
-       await  db.collection('tasks').where("user", "==", `${await auth.currentUser.uid}`).get().then(tasks => {
-            tasks.forEach(task => {
+    //    console.log(`${await auth.currentUser.uid}`)
+       await  db.collection('tasks').where("user", "==", `${await localStorage.getItem('userId')}`).get().then(tasks => {
+       this.state.tasks = [];
+       tasks.forEach(task => {
               Tasks.push(  {
                 _id: task.id,
             name: task.data().name,
@@ -129,13 +136,14 @@ class Board extends Component {
                     
                 >
                     {t.name}
+                    <img src={deleteIcon} className="deleteIcon" alt="delete icon"/>
                 </div>
             );
         });
 
         return (
             <div className="container-drag">
-             <Header/>
+             <Header email={localStorage.getItem('userEmail')}/>
               <div className="container-header">
                <button className="addTask" onClick={this.onTriggerAddTask}>Add Task</button>
                <div className="newTask-form shadow" id="addTaskWrapper">

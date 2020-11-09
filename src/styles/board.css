@@ -144,3 +144,14 @@
   outline: none;
 
   }
+  .deleteIcon{
+    width: 30px;
+    float: right;
+    padding: 5px;
+    cursor: pointer;
+
+
+  }
+  .deleteIcon:hover{
+    transform: scale(1.1);
+  }

@@ -1,11 +1,19 @@
 import React,{Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import '../styles/header.css';  
 
 import app from '../helper/firebase/Config';
+import {useHistory} from 'react-router-dom'
 const auth = app.auth();
 
-export default function Header() {
-    const currentUser = auth.currentUser;
+export default function Header(propos) {
+    const history = useHistory();
+    const logout = () => {
+        auth.signOut().then(()=>{
+           history.push('/login')
+        })
+    }
+    
      return (
             <div className="header-container">
                 <ul>
@@ -23,10 +31,11 @@ export default function Header() {
 
                     )} */}
                     {
-                   currentUser ? (
+                   propos ? (
                      <>
-                     <li>{currentUser.email}</li>
-                   <li className="profile">{currentUser.email[0].toUpperCase()}</li>
+                     <li className="logout" onClick={logout}>Logout</li>
+                     <li>{propos.email}</li>
+                     <li className="profile">{propos.email[0].toUpperCase()}</li>
                    
                      </>
                     ):(

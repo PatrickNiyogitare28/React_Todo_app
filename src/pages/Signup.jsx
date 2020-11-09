@@ -1,63 +1,50 @@
-import React, { Component} from  'react';
-import {Link, Redirect} from 'react-router-dom';
+import React, { Component, useState} from  'react';
+import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import '../styles/login.css';
-import {signUp} from '../services/auth.service';
+import app from '../helper/firebase/Config';
+import Toaster from '../components/Toaster';
 
 
-class Signup extends Component {
-    constructor(props){
-        super(props);
-        this.submitHandler = this.submitHandler.bind(this);
-    }
-    state = {
-        data: {
-        email: '',
-        password: '',
-        confirmation: ''
-       },
-       isRegistered: false,
-       redirect: false
-    }
-    
-    setRedirect = () => {
-        this.setState({
-          redirect: true
-        })
-     }
+const auth = app.auth();;
 
-    async submitHandler(e){
+
+export default function Signup(){
+    const history = useHistory()
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
+    const [confirmation,setConfirmation] = useState('')
+
+    const submitHandler =   async (e) => {
         e.preventDefault();
-        
-        this.state.data.email = document.getElementById('email').value;
-        this.state.data.password = document.getElementById('password').value;
-        this.state.data.confirmation = document.getElementById('confirmation').value;
-   
-        if(signUp(this.state.data.email, this.state.data.password)){
-          this.setRedirect();
-      }
-       
-    }
-    render() { 
-        if(this.state.redirect){
-            return <Redirect to="/board" />
-         }
-        return (  
-            <div className="container">
-              <div className="formWrapper shadow">
-                    <form onSubmit={this.submitHandler}> 
-                        <input type="email"  placeholder="Email" id="email"/>
-                        <input  type="password" name="password" placeholder="Password" id="password"/>
-                        <input  type="password" name="password" placeholder="Confirm password" id="confirmation"/>
 
-                        <button>Signup</button>
-                    </form>
-                  <p>Aready have account? <Link to="/login"><span title="Login">Login here</span></Link></p>
-                </div>
-            </div>
+        if(confirmation !== password){
+            return Toaster('error','Wrong password confirmation');
+        }
+     try {
+            // Toaster('info','Creating an account...');
+            await auth.createUserWithEmailAndPassword(email,password);
+            localStorage.setItem('userId',auth.currentUser.uid);
+            localStorage.setItem('userEmail',auth.currentUser.email);
+            history.push('/board')
+        } catch (error) {
+            Toaster('error',error.message);
+            console.log("error ",error.message)
+        }
 
-           
-        );
     }
+    return (
+        <div className="container">
+        <div className="formWrapper shadow">
+              <form onSubmit={submitHandler}>
+                  <input type="email"  placeholder="Email" id="email" value={email} onChange={e => setEmail(e.target.value)}/>
+                  <input  type="password" name="password" placeholder="Password" id="password" value={password} onChange={e => setPassword(e.target.value)}/>
+                  <input  type="password" name="confirmation" placeholder="Confirm password" id="confirmation" value={confirmation} onChange={e => setConfirmation(e.target.value)}/>
+                 
+                  <button>Signup</button>
+              </form>
+            <p>Have an account? <Link to="/login"><span title="Regester"> Login </span></Link></p>
+          </div>
+      </div>  
+    )
 }
- 
-export default Signup;
