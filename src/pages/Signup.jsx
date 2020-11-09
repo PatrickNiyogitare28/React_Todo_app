@@ -22,8 +22,7 @@ export default function Signup(){
             return Toaster('error','Wrong password confirmation');
         }
      try {
-            // Toaster('info','Creating an account...');
-            await auth.createUserWithEmailAndPassword(email,password);
+           await auth.createUserWithEmailAndPassword(email,password);
             localStorage.setItem('userId',auth.currentUser.uid);
             localStorage.setItem('userEmail',auth.currentUser.email);
             history.push('/board')
@@ -35,7 +34,7 @@ export default function Signup(){
     }
     return (
         <div className="container">
-        <div className="formWrapper shadow">
+        <div className="formWrapper signup-wrapper shadow">
               <form onSubmit={submitHandler}>
                   <input type="email"  placeholder="Email" id="email" value={email} onChange={e => setEmail(e.target.value)}/>
                   <input  type="password" name="password" placeholder="Password" id="password" value={password} onChange={e => setPassword(e.target.value)}/>

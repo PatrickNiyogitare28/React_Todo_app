@@ -67,7 +67,6 @@ class Home extends Component {
 
     render() { 
         this.triggerTypeWritter();
-        console.log("/////",process.env.REACT_APP_API_KEY);
         return (  
         
             <div className="containerFluid">

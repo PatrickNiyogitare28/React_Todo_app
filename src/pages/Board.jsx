@@ -60,6 +60,9 @@ class Board extends Component {
        let tasks = this.state.tasks.filter((task) => {
            if (task.name == id) {
                task.category = cat;
+               db.collection('tasks').doc(task._id).update({
+                   category: task.category
+               })
            }
            return task;
        });
@@ -119,6 +122,17 @@ class Board extends Component {
             tasks:[...this.state.tasks,...Tasks]
         });
     }
+
+    deleteTask(id){
+     Toaster('success','Deleting Task');
+
+       db.collection('tasks').doc(id).delete().then(() => {
+           this.getTasks();
+       })
+       .catch(e => {
+           Toaster("error","An error occured");
+       })
+    }
     render() {
         var tasks = {
             wip: [],
@@ -136,7 +150,7 @@ class Board extends Component {
                     
                 >
                     {t.name}
-                    <img src={deleteIcon} className="deleteIcon" alt="delete icon"/>
+                    <img src={deleteIcon} onClick={()=>this.deleteTask(t._id)} className="deleteIcon" alt="delete icon"/>
                 </div>
             );
         });
