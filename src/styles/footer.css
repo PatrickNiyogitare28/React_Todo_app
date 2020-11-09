@@ -1,7 +1,6 @@
 .footerContainer{
     width: 100%;
-    /* background: rgb(255, 255, 255); */
-    background: rgba(224, 224, 224, 0.459);
+   
     color: black;
     padding: 7px;
     height: 50px;
@@ -9,6 +8,50 @@
     
 }
 
+.container-fluid{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.left-wrapper{
+    width: 200px;
+  
+}
+.left-wrapper ul{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.left-wrapper ul li:nth-child(1){
+   font-weight: bolder;
+   font-size:20px;
+
+    
+}
+.left-wrapper ul li:nth-child(2){
+    font-size: 13px;
+    font-weight: lighter;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 0.5em;
+}
+.left-wrapper ul li:nth-child(2):hover{
+    transform: scale(1.04);
+}
+.left-wrapper ul li img{
+    width: 30px;
+    padding-right: 5px;
+}
+.right-wrapper{
+    width: 200px;
+
+}
+.right-wrapper ul{
+    width: 100%;
+}
+.right-wrapper ul li{
+    font-size: 13px;
+}
 .footerContainer  a{
     text-decoration: none;
     cursor: pointer;

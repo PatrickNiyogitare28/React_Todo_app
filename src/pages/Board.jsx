@@ -193,7 +193,7 @@ class Board extends Component {
                 </div>
 
              </div>
-            <Footer></Footer>
+            <Footer page={"Home"} />
              
             </div>
         );
