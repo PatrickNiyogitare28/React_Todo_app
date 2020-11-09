@@ -53,3 +53,6 @@
     color: black;
     cursor:pointer;
 }
+.signup-wrapper{
+    height: max-content;
+}
