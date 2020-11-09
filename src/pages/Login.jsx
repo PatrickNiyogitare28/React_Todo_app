@@ -1,9 +1,11 @@
 import React, { Component, useState} from  'react';
 import {Link} from 'react-router-dom';
-import {login} from '../services/auth.service';
 import {useHistory} from 'react-router-dom';
 import '../styles/login.css';
 import app from '../helper/firebase/Config';
+import Toaster from '../components/Toaster';
+
+
 const auth = app.auth();;
 
 
@@ -14,9 +16,12 @@ export default function Login(){
     const submitHandler =   async (e) => {
         e.preventDefault();
      try {
-            await auth.signInWithEmailAndPassword(email,password)
+            await auth.signInWithEmailAndPassword(email,password);
+            localStorage.setItem('userId',auth.currentUser.uid);
+            localStorage.setItem('userEmail',auth.currentUser.email);
             history.push('/board')
         } catch (error) {
+            Toaster('error','Invalid email or password');
             console.log("error ",error)
         }
 
