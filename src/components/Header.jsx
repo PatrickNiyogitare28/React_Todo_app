@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
+import '../styles/header.css';  
 
-class Header extends Component {
-   
-    render() { 
-        return (
-            <div className="header">
+import app from '../helper/firebase/Config';
+const auth = app.auth();
+
+export default function Header() {
+    const currentUser = auth.currentUser;
+     return (
+            <div className="header-container">
                 <ul>
-                    {user ? (
+                    {/* {currentUser ? (
                     <>
                     <li>list 1</li>
                     <li>list 2</li>
@@ -17,13 +20,24 @@ class Header extends Component {
                     <li>list 4</li>
                     <li>list 5</li>
                     </>
-                    )}
-                    
+
+                    )} */}
+                    {
+                   currentUser ? (
+                     <>
+                     <li>{currentUser.email}</li>
+                   <li className="profile">{currentUser.email[0].toUpperCase()}</li>
+                   
+                     </>
+                    ):(
+                        <li></li>
+                    )
+                    }
+                  
                    
                 </ul>
             </div>
          );
-    }
+    
 }
  
-export default Header;
