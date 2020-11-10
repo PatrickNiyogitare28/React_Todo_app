@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+##                   A simple TODO application Built with React and Firebase
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Visit live app** [Here](https://patrickniyo-todolist.vercel.app/)
+ 
+
+
+
+# Getting Started with cloned App
+
+
 
 ## Available Scripts
 
