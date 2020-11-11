@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {useState} from 'react'
 import '../styles/board.css';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -21,16 +22,11 @@ class Board extends Component {
     }
 
     state = {
-        tasks: [
-            // {name:"Learn Angular",category:"wip", bgcolor: "yellow"},
-            // {name:"React", category:"wip", bgcolor:"pink"},
-            // {name:"Vue", category:"complete", bgcolor:"skyblue"},
-            // {name:"Vanilla", category:"inprogress", bgcolor:"skyblue"},
-            // {name:"Jquery", category:"inprogress", bgcolor:"skyblue"}
-          ],
-
-          isLoggedIn: false
-    }
+        tasks: [],
+        isLoggedIn: false,
+        isDataLoaded: false,
+        
+}
 
     componentDidMount(){
     
@@ -80,7 +76,12 @@ class Board extends Component {
     handleSubmit(e){
         e.preventDefault();
         let task = document.getElementById('task').value;
-        this.addTask(task);
+        if(task.replace(/\s+/g, '').length !== 0){
+            this.addTask(task);
+        }
+        else{
+            return(Toaster('error','Taskname is required.'))
+        }
     }
 
     async addTask(task){
@@ -90,8 +91,8 @@ class Board extends Component {
           category: 'wip',
           user: await auth.currentUser.uid
         }).then(()=> {
-            // alert("Task added");
-            this.componentDidMount();
+         document.getElementById('task').value = '';  
+         this.componentDidMount();
         })
         .catch(e => {
             alert("erro");
@@ -112,6 +113,7 @@ class Board extends Component {
             user: task.data().users
         })
             })
+      
         })
         .catch(e => {
             console.log("error occured "+e)
@@ -121,6 +123,10 @@ class Board extends Component {
             ...this.state,
             tasks:[...this.state.tasks,...Tasks]
         });
+        this.setState({
+            ...this.state,
+            isDataLoaded: true
+        })
     }
 
     deleteTask(id){
@@ -158,6 +164,8 @@ class Board extends Component {
         return (
             <div className="container-drag">
              <Header email={localStorage.getItem('userEmail')}/>
+
+              
               <div className="container-header">
                <button className="addTask" onClick={this.onTriggerAddTask}>Add Task</button>
                <div className="newTask-form shadow" id="addTaskWrapper">
@@ -170,26 +178,48 @@ class Board extends Component {
                </div>
                      
              </div>  
+             
              <div className="subContainer">
                <div className="wip card-item-container"
                     onDragOver={(e)=>this.onDragOver(e)}
                     onDrop={(e)=>{this.onDrop(e, "wip")}}>
                     <span className="task-header shadow">TODO</span>
-                    {tasks.wip}
+                    {
+                      this.state.isDataLoaded ?
+                          tasks.wip :
+                          <>
+                          <div className="loading-task-item"></div>
+                          <div className="loading-task-item"></div>
+                          </>
+                      }
+                
                 </div>
 
                 <div className="droppable card-item-container" 
                     onDragOver={(e)=>this.onDragOver(e)}
                     onDrop={(e)=>this.onDrop(e, "inprogress")}>
                      <span className="task-header shadow">INPROGRESS</span>
-                     {tasks.inprogress}
+                     {
+                      this.state.isDataLoaded ?
+                          tasks.inprogress :
+                          <>
+                          <div className="loading-task-item"></div>
+                          </>
+                     }
                 </div>
 
                 <div className="droppable card-item-container" 
                     onDragOver={(e)=>this.onDragOver(e)}
                     onDrop={(e)=>this.onDrop(e, "complete")}>
                      <span className="task-header shadow">DONE</span>
-                     {tasks.complete}
+                     {
+                      this.state.isDataLoaded ?
+                          tasks.complete :
+                          <>
+                          <div className="loading-task-item"></div>
+                          <div className="loading-task-item"></div>
+                          </>
+                     }
                 </div>
 
              </div>
