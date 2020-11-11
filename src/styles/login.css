@@ -37,6 +37,7 @@
     border-radius: 30px 30px;
     margin-top: 4em;
     font-size: 16px;
+    outline: none !important;
 }
 .formWrapper button:hover{
     cursor: pointer;
@@ -58,4 +59,16 @@
 }
 .signupButton{
     margin-top: 2em !important;
+}
+.sendig-data{
+    background: rgb(73, 72, 72) !important; 
+    color: white;
+    padding: 12px !important;
+}
+.sendig-data:hover{
+    transform: scale(1) !important;
+    cursor: not-allowed !important;
+}
+button img{
+    width: 30px;
 }
