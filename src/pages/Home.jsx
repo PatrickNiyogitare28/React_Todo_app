@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
+import ReactTooltip from 'react-tooltip';
 import '../styles/home.css';
 import imageURL from '../assets/images/home-img.svg';
 import Footer from '../components/Footer';
@@ -81,8 +82,10 @@ class Home extends Component {
                             </span>
                         </small>
                         </h1>
-                   
-                   <Link to='/login'> <button> Get Started</button></Link> 
+                  
+                 
+                   <Link to='/login'> <button data-tip="You need to login to access you board!"> Get Started</button></Link> 
+                   <ReactTooltip place="left" type="info" effect="solid"/>
                 </div>
                 <div className="rightWrapper">
                    <img src={imageURL} alt="image"/>
