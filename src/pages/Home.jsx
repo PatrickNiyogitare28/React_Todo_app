@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, lazy, Suspense} from 'react';
 import {Link} from 'react-router-dom'
 import ReactTooltip from 'react-tooltip';
 import '../styles/home.css';
 import imageURL from '../assets/images/home-img.svg';
-import Footer from '../components/Footer';
-
+// import Footer from '../components/Footer';
+const Footer = lazy(() => import('../components/Footer'));
 class Home extends Component {
   
     triggerTypeWritter(){
@@ -92,7 +92,9 @@ class Home extends Component {
                 </div>
            
             </div>
+            <Suspense fallback={<div>loading ....</div>}>
             <Footer></Footer>
+            </Suspense>
             </div>
         );
     }
